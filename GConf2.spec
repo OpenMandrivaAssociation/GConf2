@@ -2,6 +2,7 @@
 %define api_version	2
 %define	lib_major	4
 %define lib_name	%mklibname %{name}_ %{lib_major}
+%define lib_namedev	%mklibname -d %{name}_ %{lib_major}
 
 # Version of required packages
 %define req_orbit_version	2.4.0
@@ -9,7 +10,7 @@
 
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.18.0.1
+Version: 2.19.1
 Release:	%mkrel 1
 License:	LGPL
 Group:		Graphical desktop/GNOME
@@ -59,7 +60,7 @@ applications as well.
 This package contains necessary libraries to run any programs linked
 with GConf.
 
-%package -n %{lib_name}-devel
+%package -n %{lib_namedev}
 Summary:	Development libraries and headers for GConf
 Group:		Development/GNOME and GTK+
 Conflicts:	libGConf1-devel < 1.0.6
@@ -68,7 +69,7 @@ Requires:	%{lib_name} = %{version}
 Requires:	libORBit2-devel
 Requires:	libglib2-devel >= %{req_glib_version}
 
-%description -n %{lib_name}-devel
+%description -n %{lib_namedev}
 GConf is a configuration data storage mechanism scheduled to
 ship with GNOME 2.0. GConf does work without GNOME however; it
 can be used with plain GTK+, Xlib, KDE, or even text mode
@@ -164,7 +165,7 @@ fi
 %doc README
 %{_libdir}/lib*.so.*
 
-%files -n %{lib_name}-devel
+%files -n %{lib_namedev}
 %defattr (-, root, root)
 %doc ChangeLog TODO NEWS AUTHORS
 %doc %{_datadir}/gtk-doc/html/*
