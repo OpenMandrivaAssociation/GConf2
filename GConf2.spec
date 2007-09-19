@@ -2,7 +2,7 @@
 %define api_version	2
 %define	lib_major	4
 %define lib_name	%mklibname %{name}_ %{lib_major}
-%define lib_namedev	%mklibname -d %{name}_ %{lib_major}
+%define lib_namedev	%mklibname -d %{name}
 
 # Version of required packages
 %define req_orbit_version	2.4.0
@@ -10,7 +10,7 @@
 
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.19.1
+Version: 2.20.0
 Release:	%mkrel 1
 License:	LGPL
 Group:		Graphical desktop/GNOME
@@ -68,6 +68,7 @@ Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{lib_name} = %{version}
 Requires:	libORBit2-devel
 Requires:	libglib2-devel >= %{req_glib_version}
+Obsoletes: %mklibname -d %{name}_ 4
 
 %description -n %{lib_namedev}
 GConf is a configuration data storage mechanism scheduled to
