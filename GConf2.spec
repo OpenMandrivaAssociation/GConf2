@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.20.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPL
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -20,9 +20,9 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/%{pkgname}/%{pkgname}-%{version}.tar.bz2
 Source1:	gconf.sh
 Source2:	gconf.csh
-# (fc) add GCONF_TMPDIR variable to use a different dir than TMPDIR for locking (Mdk bug 6140)
+# (fc) add GCONF_TMPDIR variable to use a different dir than TMPDIR for locking (Mdk bug 6140) (GNOME bug #497113)
 Patch0:		GConf-2.4.0-tmpdir.patch
-# (fc) reload database when schemas are installed/uninstalled
+# (fc) reload database when schemas are installed/uninstalled (GNOME bug #328697)
 Patch1:		GConf-2.12.1-reload.patch
 Conflicts:	GConf < 1.0.6
 BuildRequires:  libglib2.0-devel >= %{req_glib_version}
@@ -88,7 +88,7 @@ applications using GConf.
 
 %configure2_5x --enable-gtk-doc
 
-make
+%make
 
 make check
 
