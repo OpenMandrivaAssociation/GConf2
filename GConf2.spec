@@ -15,6 +15,7 @@ Release:	%mkrel 2
 License:	LGPL
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/%{pkgname}/%{pkgname}-%{version}.tar.bz2
 Source1:	gconf.sh
