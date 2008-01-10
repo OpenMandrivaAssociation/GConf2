@@ -88,8 +88,8 @@ applications using GConf.
 %patch2 -p1 -b .pkgconfig
 
 %build
-
-%configure2_5x --enable-gtk-doc
+# <mrl> 20080110 texpdf is currently fork-bombing :(
+%configure2_5x --disable-gtk-doc
 
 %make
 
