@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.21.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPL
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -24,6 +24,8 @@ Source2:	gconf.csh
 Patch0:		GConf-2.4.0-tmpdir.patch
 # (fc) reload database when schemas are installed/uninstalled (GNOME bug #328697)
 Patch1:		GConf-2.12.1-reload.patch
+# (mrl) Fix pkg-config file, http://svn.gnome.org/viewvc/gconf/trunk/gconf-2.0.pc.in?r1=2505&r2=2506
+Patch2:		GConf-2.21.1-pkgconfig.patch
 Conflicts:	GConf < 1.0.6
 BuildRequires:  libglib2.0-devel >= %{req_glib_version}
 BuildRequires:	libxml2-devel
@@ -83,6 +85,7 @@ applications using GConf.
 %setup -q -n %{pkgname}-%{version}
 %patch0 -p1 -b .tmpdir
 %patch1 -p1 -b .reload
+%patch2 -p1 -b .pkgconfig
 
 %build
 
