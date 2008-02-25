@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.21.90
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPL
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -43,6 +43,13 @@ ship with GNOME 2.0. GConf does work without GNOME however; it
 can be used with plain GTK+, Xlib, KDE, or even text mode
 applications as well.
 
+%package -n %{pkgname}%{api_version}-sanity-check
+Summary:	Sanity checker for %{pkgname}%{api_version}
+Group:		%{group}
+
+%description -n %{pkgname}%{api_version}-sanity-check
+gconf-sanity-check is a tool to check the sanity of a %{pkgname}%{api_version}
+installation.
 
 %package -n %{lib_name}
 Summary:	%{summary}
@@ -150,7 +157,6 @@ fi
 %{_prefix}/lib/gconfd-%{api_version}
 %endif
 %{_libexecdir}/gconfd-%{api_version}
-%{_libexecdir}/gconf-sanity-check-%{api_version}
 %dir %{_libdir}/GConf
 %dir %{_libdir}/GConf/%{api_version}
 %{_libdir}/GConf/%{api_version}/*.so
@@ -160,6 +166,10 @@ fi
 %dir %{_sysconfdir}/gconf/schemas
 %{_datadir}/sgml/gconf
 %{_datadir}/GConf
+
+# (blino) split gconf-sanity-check not to require gtk in GConf2
+%files -n %{pkgname}%{api_version}-sanity-check
+%{_libexecdir}/gconf-sanity-check-%{api_version}
 
 %files -n %{lib_name}
 %defattr(-, root, root)
