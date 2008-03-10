@@ -10,8 +10,8 @@
 
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.21.90
-Release:	%mkrel 4
+Version: 2.22.0
+Release:	%mkrel 1
 License:	LGPL
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
