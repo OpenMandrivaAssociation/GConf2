@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.22.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPL
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -54,7 +54,7 @@ installation.
 
 %package -n %{lib_name}
 Summary:	%{summary}
-Group:		%{group}
+Group:		System/Libraries
 Provides:	lib%{name} >= %{version}-%{release}
 Requires:  	%{name} >= %{version}
 Requires:	libORBit2 >= %{req_orbit_version}
