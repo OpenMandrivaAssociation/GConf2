@@ -10,8 +10,8 @@
 
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.22.0
-Release:	%mkrel 4
+Version: 2.23.1
+Release:	%mkrel 1
 License:	LGPL
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -22,8 +22,6 @@ Source1:	gconf.sh
 Source2:	gconf.csh
 Source3:	gconf-schemas.filter
 Source4:	gconf-schemas.script
-# (fc) add GCONF_TMPDIR variable to use a different dir than TMPDIR for locking (Mdk bug 6140) (GNOME bug #497113)
-Patch0:		GConf-2.4.0-tmpdir.patch
 # (fc) reload database when schemas are installed/uninstalled (GNOME bug #328697)
 Patch1:		GConf-2.12.1-reload.patch
 Conflicts:	GConf < 1.0.6
@@ -31,9 +29,10 @@ BuildRequires:  libglib2.0-devel >= %{req_glib_version}
 BuildRequires:	libxml2-devel
 BuildRequires:	libgtk+2-devel
 BuildRequires:	libORBit2-devel >= %{req_orbit_version}
+BuildRequires:  dbus-glib-devel
 BuildRequires:  autoconf2.5
 BuildRequires:  gtk-doc
-BuildRequires:  perl-XML-Parser
+BuildRequires:  intltool
 BuildRequires:	libldap-devel
 Requires:	%{lib_name} = %{version}
 # needed by patch1
@@ -93,7 +92,6 @@ applications using GConf.
 
 %prep
 %setup -q -n %{pkgname}-%{version}
-%patch0 -p1 -b .tmpdir
 %patch1 -p1 -b .reload
 
 %build
@@ -181,6 +179,7 @@ fi
 %dir %{_sysconfdir}/gconf/schemas
 %{_datadir}/sgml/gconf
 %{_datadir}/GConf
+%{_datadir}/dbus-1/services/org.gnome.GConf.service
 %{_var}/lib/rpm/filetriggers/gconf-schemas.*
 
 # (blino) split gconf-sanity-check not to require gtk in GConf2
