@@ -12,7 +12,7 @@ Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.23.1
 Release:	%mkrel 1
-License:	LGPL
+License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
