@@ -37,6 +37,7 @@ BuildRequires:	libldap-devel
 Requires:	%{lib_name} = %{version}
 # needed by patch1
 Requires:	psmisc
+Requires:	sed
 Requires(post):	update-alternatives
 
 %description
