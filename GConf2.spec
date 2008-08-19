@@ -28,7 +28,7 @@ Conflicts:	GConf < 1.0.6
 BuildRequires:  libglib2.0-devel >= %{req_glib_version}
 BuildRequires:	libxml2-devel
 BuildRequires:	libgtk+2-devel
-BuildRequires:	libpolkit-devel
+BuildRequires:	polkit-devel
 BuildRequires:	libORBit2-devel >= %{req_orbit_version}
 BuildRequires:  dbus-glib-devel
 BuildRequires:  autoconf2.5
