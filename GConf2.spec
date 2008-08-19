@@ -10,8 +10,8 @@
 
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.23.1
-Release:	%mkrel 2
+Version: 2.23.2
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -28,6 +28,7 @@ Conflicts:	GConf < 1.0.6
 BuildRequires:  libglib2.0-devel >= %{req_glib_version}
 BuildRequires:	libxml2-devel
 BuildRequires:	libgtk+2-devel
+BuildRequires:	libpolkit-devel
 BuildRequires:	libORBit2-devel >= %{req_orbit_version}
 BuildRequires:  dbus-glib-devel
 BuildRequires:  autoconf2.5
@@ -164,6 +165,7 @@ fi
 %defattr(-, root, root)
 %doc README
 %config(noreplace) %{_sysconfdir}/profile.d/*
+%config(noreplace) %_sysconfdir/dbus-1/system.d/org.gnome.GConf.Defaults.conf
 %{_bindir}/gconftool*
 %{_bindir}/gconf-merge-tree
 %_mandir/man1/gconftool-2.1*
@@ -171,6 +173,7 @@ fi
 %{_prefix}/lib/gconfd-%{api_version}
 %endif
 %{_libexecdir}/gconfd-%{api_version}
+%{_libexecdir}/gconf-defaults-mechanism
 %dir %{_libdir}/GConf
 %dir %{_libdir}/GConf/%{api_version}
 %{_libdir}/GConf/%{api_version}/*.so
@@ -178,9 +181,11 @@ fi
 %dir %{_sysconfdir}/gconf
 %dir %{_sysconfdir}/gconf/gconf.xml*
 %dir %{_sysconfdir}/gconf/schemas
+%{_datadir}/PolicyKit/policy/org.gnome.gconf.defaults.policy
 %{_datadir}/sgml/gconf
 %{_datadir}/GConf
 %{_datadir}/dbus-1/services/org.gnome.GConf.service
+%{_datadir}/dbus-1/system-services/org.gnome.GConf.Defaults.service
 %{_var}/lib/rpm/filetriggers/gconf-schemas.*
 
 # (blino) split gconf-sanity-check not to require gtk in GConf2
