@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.23.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -153,6 +153,9 @@ update-alternatives --install %{_bindir}/gconftool gconftool /usr/bin/gconftool-
 if [ "$1" = "2" ]; then 
 		update-alternatives --auto gconftool
 fi
+
+%triggerpostun -- GConf2 < 2.22.0-4mdv
+GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/*.schemas > /dev/null
 
 %if %mdkversion < 200900
 %post -n %{lib_name} -p /sbin/ldconfig
