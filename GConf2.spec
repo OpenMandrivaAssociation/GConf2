@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.25.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -121,7 +121,7 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib
 ln -s ../%{_lib}/gconfd-%{api_version} $RPM_BUILD_ROOT%{_prefix}/lib/gconfd-%{api_version}
 %endif
 
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/gconf/{gconf.xml.local-defaults,gconf.xml.local-mandatory}
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/gconf/{gconf.xml.local-defaults,gconf.xml.local-mandatory,gconf.xml.system}
 
 cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/gconf/2/local-defaults.path
 xml:readonly:/etc/gconf/gconf.xml.local-defaults
