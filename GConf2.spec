@@ -10,8 +10,8 @@
 
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.26.2
-Release:	%mkrel 2
+Version: 2.27.0
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -28,7 +28,7 @@ Conflicts:	GConf < 1.0.6
 BuildRequires:  libglib2.0-devel >= %{req_glib_version}
 BuildRequires:	libxml2-devel
 BuildRequires:	libgtk+2-devel
-BuildRequires:	polkit-devel
+BuildRequires:	polkit-1-devel
 BuildRequires:	libORBit2-devel >= %{req_orbit_version}
 BuildRequires:  dbus-glib-devel
 BuildRequires:  autoconf2.5
@@ -185,7 +185,7 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %dir %{_sysconfdir}/gconf
 %dir %{_sysconfdir}/gconf/gconf.xml*
 %dir %{_sysconfdir}/gconf/schemas
-%{_datadir}/PolicyKit/policy/org.gnome.gconf.defaults.policy
+%{_datadir}/polkit-1/actions/org.gnome.gconf.defaults.policy
 %{_datadir}/sgml/gconf
 %{_datadir}/GConf
 %{_datadir}/dbus-1/services/org.gnome.GConf.service
