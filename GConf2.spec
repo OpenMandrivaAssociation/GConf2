@@ -35,6 +35,7 @@ BuildRequires:  autoconf2.5
 BuildRequires:  gtk-doc
 BuildRequires:  intltool
 BuildRequires:	libldap-devel
+Requires:	polkit-agent
 Requires:	%{lib_name} = %{version}
 # needed by patch1
 Requires:	psmisc
