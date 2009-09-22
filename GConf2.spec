@@ -10,7 +10,7 @@
 
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.27.0
+Version: 2.28.0
 Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
