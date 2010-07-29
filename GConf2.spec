@@ -6,11 +6,11 @@
 
 # Version of required packages
 %define req_orbit_version	2.4.0
-%define req_glib_version	2.9.1
+%define req_glib_version	2.25.9
 
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.28.1
+Version: 2.31.6
 Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
@@ -35,6 +35,7 @@ BuildRequires:  autoconf2.5
 BuildRequires:  gtk-doc
 BuildRequires:  intltool
 BuildRequires:	libldap-devel
+BuildRequires:	gobject-introspection-devel
 Requires:	polkit-agent
 Requires:	%{lib_name} = %{version}
 # needed by patch1
@@ -63,6 +64,7 @@ Group:		System/Libraries
 Provides:	lib%{name} >= %{version}-%{release}
 Requires:  	%{name} >= %{version}
 Requires:	libORBit2 >= %{req_orbit_version}
+Conflicts: gir-repository < 0.6.5-12
 
 %description -n %{lib_name}
 GConf is a configuration data storage mechanism scheduled to
@@ -84,6 +86,7 @@ Requires:	libORBit2-devel
 Requires:	libglib2-devel >= %{req_glib_version}
 Requires:  dbus-glib-devel
 Obsoletes: %mklibname -d %{name}_ 4
+Conflicts: gir-repository < 0.6.5-12
 
 %description -n %{lib_namedev}
 GConf is a configuration data storage mechanism scheduled to
@@ -144,7 +147,7 @@ install -m 755 %{SOURCE4} %buildroot%{_var}/lib/rpm/filetriggers
 %{find_lang} %{name}
 
 # remove unpackaged files
-rm -f $RPM_BUILD_ROOT%{_libdir}/GConf/%{api_version}/*.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/{gio/modules/,GConf/%{api_version}}/*.a
 
 %clean
 rm -rf %{buildroot}
@@ -171,9 +174,14 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %doc README
 %config(noreplace) %{_sysconfdir}/profile.d/*
 %config(noreplace) %_sysconfdir/dbus-1/system.d/org.gnome.GConf.Defaults.conf
+%_sysconfdir/xdg/autostart/gsettings-data-convert.desktop
+%_bindir/gsettings-data-convert
+%_bindir/gsettings-schema-convert
 %{_bindir}/gconftool*
 %{_bindir}/gconf-merge-tree
 %_mandir/man1/gconftool-2.1*
+%_mandir/man1/gsettings-data-convert.1*
+%_mandir/man1/gsettings-schema-convert.1*
 %if "%{_lib}" != "lib"
 %{_prefix}/lib/gconfd-%{api_version}
 %endif
@@ -201,6 +209,9 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %defattr(-, root, root)
 %doc README
 %{_libdir}/lib*.so.*
+%_libdir/gio/modules/libgsettingsgconfbackend.so
+%_libdir/gio/modules/libgsettingsgconfbackend.la
+%_libdir/girepository-1.0/GConf-2.0.typelib
 
 %files -n %{lib_namedev}
 %defattr (-, root, root)
@@ -212,5 +223,6 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %attr(644,root,root) %{_libdir}/*a
 %{_libdir}/pkgconfig/*
 %attr(644,root,root) %{_libdir}/GConf/%{api_version}/*.la
+%_datadir/gir-1.0/GConf-2.0.gir
 
 
