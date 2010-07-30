@@ -24,6 +24,7 @@ Source3:	gconf-schemas.filter
 Source4:	gconf-schemas.script
 # (fc) reload database when schemas are installed/uninstalled (GNOME bug #328697)
 Patch1:		GConf-2.12.1-reload.patch
+Patch2:		GConf-2.31.6-glib-d5bd53.patch
 Conflicts:	GConf < 1.0.6
 BuildRequires:  libglib2.0-devel >= %{req_glib_version}
 BuildRequires:	libxml2-devel
@@ -100,6 +101,7 @@ applications using GConf.
 %prep
 %setup -q -n %{pkgname}-%{version}
 %patch1 -p1 -b .reload
+%patch2 -p1 -b .glib
 
 %build
 # <mrl> 20080110 texpdf is currently fork-bombing :(
