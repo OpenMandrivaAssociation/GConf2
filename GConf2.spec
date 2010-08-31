@@ -8,10 +8,11 @@
 %define req_orbit_version	2.4.0
 %define req_glib_version	2.25.12
 
+%define giolibname %mklibname gio2.0_ 0
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.31.91
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -65,6 +66,8 @@ Provides:	lib%{name} >= %{version}-%{release}
 Requires:  	%{name} >= %{version}
 Requires:	libORBit2 >= %{req_orbit_version}
 Conflicts: gir-repository < 0.6.5-12
+Requires(post): %giolibname >= 2.23.4-2mdv
+Requires(postun): %giolibname >= 2.23.4-2mdv
 
 %description -n %{lib_name}
 GConf is a configuration data storage mechanism scheduled to
@@ -162,11 +165,18 @@ fi
 %triggerpostun -- GConf2 < 2.22.0-4mdv
 GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/*.schemas > /dev/null
 
-%if %mdkversion < 200900
-%post -n %{lib_name} -p /sbin/ldconfig
+%post -n %{lib_name}
+%if %_lib != lib
+ %{_bindir}/gio-querymodules-64 %{_libdir}/gio/modules 
+%else
+ %{_bindir}/gio-querymodules-32 %{_libdir}/gio/modules
 %endif
-%if %mdkversion < 200900
-%postun -n %{lib_name} -p /sbin/ldconfig
+
+%postun -n %{lib_name}
+%if %_lib != lib
+ %{_bindir}/gio-querymodules-64 %{_libdir}/gio/modules 
+%else
+ %{_bindir}/gio-querymodules-32 %{_libdir}/gio/modules
 %endif
 
 %files -f %{name}.lang
