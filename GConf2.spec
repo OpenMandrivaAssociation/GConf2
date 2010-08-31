@@ -173,11 +173,13 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %endif
 
 %postun -n %{lib_name}
+if [ "$1" = "0" ]; then
 %if %_lib != lib
  %{_bindir}/gio-querymodules-64 %{_libdir}/gio/modules 
 %else
  %{_bindir}/gio-querymodules-32 %{_libdir}/gio/modules
 %endif
+fi
 
 %files -f %{name}.lang
 %defattr(-, root, root)
