@@ -12,7 +12,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.32.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -21,8 +21,6 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 Source0: 	ftp://ftp.gnome.org/pub/GNOME/sources/%{pkgname}/%{pkgname}-%{version}.tar.bz2
 Source1:	gconf.sh
 Source2:	gconf.csh
-Source3:	gconf-schemas.filter
-Source4:	gconf-schemas.script
 # (fc) reload database when schemas are installed/uninstalled (GNOME bug #328697)
 Patch1:		GConf-2.12.1-reload.patch
 Conflicts:	GConf < 1.0.6
@@ -110,6 +108,7 @@ applications using GConf.
 
 %make
 
+%check
 make check
 
 %install
@@ -140,12 +139,6 @@ cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/gconf/2/local-mandatory.path
 xml:readonly:/etc/gconf/gconf.xml.local-mandatory
 include "\$(HOME)/.gconf.path.mandatory"
 EOF
-
-# automatic install of gconf schemas on rpm installs
-# (see http://wiki.mandriva.com/en/Rpm_filetriggers)
-install -d %buildroot%{_var}/lib/rpm/filetriggers
-install -m 644 %{SOURCE3} %buildroot%{_var}/lib/rpm/filetriggers
-install -m 755 %{SOURCE4} %buildroot%{_var}/lib/rpm/filetriggers
 
 %{find_lang} %{name}
 
@@ -179,6 +172,18 @@ if [ "$1" = "0" ]; then
 %else
  %{_bindir}/gio-querymodules-32 %{_libdir}/gio/modules
 %endif
+fi
+
+%triggerin -- %{_sysconfdir}/gconf/schemas/*.schemas
+GCONF_CONFIG_SOURCE=`%{_gconftool_bin} --get-default-source`;
+export GCONF_CONFIG_SOURCE
+sed -n 's/^+//p' | xargs %{_gconftool_bin} --makefile-install-rule >/dev/null
+
+%triggerun -- %{_sysconfdir}/gconf/schemas/*.schemas
+if [ "$1" = "0" ]; then
+  GCONF_CONFIG_SOURCE=`%{_gconftool_bin} --get-default-source`;
+  export GCONF_CONFIG_SOURCE
+  sed -n 's/^+//p' | xargs %{_gconftool_bin} --makefile-uninstall-rule >/dev/null || true ;
 fi
 
 %files -f %{name}.lang
