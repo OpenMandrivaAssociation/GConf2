@@ -216,7 +216,6 @@ fi
 %{_datadir}/GConf
 %{_datadir}/dbus-1/services/org.gnome.GConf.service
 %{_datadir}/dbus-1/system-services/org.gnome.GConf.Defaults.service
-%{_var}/lib/rpm/filetriggers/gconf-schemas.*
 
 # (blino) split gconf-sanity-check not to require gtk in GConf2
 %files sanity-check
