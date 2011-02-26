@@ -12,7 +12,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.32.0
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -165,22 +165,6 @@ fi
 
 %triggerpostun -- GConf2 < 2.22.0-4mdv
 GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/*.schemas > /dev/null
-
-%post -n %{lib_name}
-%if %_lib != lib
- %{_bindir}/gio-querymodules-64 %{_libdir}/gio/modules 
-%else
- %{_bindir}/gio-querymodules-32 %{_libdir}/gio/modules
-%endif
-
-%postun -n %{lib_name}
-if [ "$1" = "0" ]; then
-%if %_lib != lib
- %{_bindir}/gio-querymodules-64 %{_libdir}/gio/modules 
-%else
- %{_bindir}/gio-querymodules-32 %{_libdir}/gio/modules
-%endif
-fi
 
 %files -f %{name}.lang
 %defattr(-, root, root)
