@@ -11,8 +11,8 @@
 %define giolibname %mklibname gio2.0_ 0
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.32.0
-Release:	%mkrel 4
+Version: 2.32.1
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -26,7 +26,7 @@ Source4:        gconf-schemas.script
 # (fc) reload database when schemas are installed/uninstalled (GNOME bug #328697)
 Patch1:		GConf-2.12.1-reload.patch
 Conflicts:	GConf < 1.0.6
-BuildRequires:  libglib2.0-devel >= %{req_glib_version}
+BuildRequires:  libglib2-devel >= %{req_glib_version}
 BuildRequires:	libxml2-devel
 BuildRequires:	libgtk+2-devel
 BuildRequires:	polkit-1-devel
@@ -106,7 +106,7 @@ applications using GConf.
 
 %build
 # <mrl> 20080110 texpdf is currently fork-bombing :(
-%configure2_5x --disable-gtk-doc
+%configure2_5x --disable-gtk-doc --with-gtk=2.0
 
 %make
 
