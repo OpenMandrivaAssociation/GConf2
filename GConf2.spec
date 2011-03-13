@@ -66,8 +66,6 @@ Provides:	lib%{name} >= %{version}-%{release}
 Requires:  	%{name} >= %{version}
 Requires:	libORBit2 >= %{req_orbit_version}
 Conflicts: gir-repository < 0.6.5-12
-Requires(post): %giolibname >= 2.23.4-2mdv
-Requires(postun): %giolibname >= 2.23.4-2mdv
 
 %description -n %{lib_name}
 GConf is a configuration data storage mechanism scheduled to
