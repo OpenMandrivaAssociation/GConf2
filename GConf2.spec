@@ -38,7 +38,6 @@ BuildRequires:  intltool
 BuildRequires:	libldap-devel
 BuildRequires:	gobject-introspection-devel
 Requires:	polkit-agent
-Requires:	%{lib_name} = %{version}
 # needed by patch1
 Requires:	psmisc
 Requires:	sed
@@ -63,7 +62,6 @@ installation.
 Summary:	%{summary}
 Group:		System/Libraries
 Provides:	lib%{name} >= %{version}-%{release}
-Requires:  	%{name} >= %{version}
 Requires:	libORBit2 >= %{req_orbit_version}
 Conflicts: gir-repository < 0.6.5-12
 
