@@ -11,8 +11,8 @@
 %define giolibname %mklibname gio2.0_ 0
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
-Version: 2.32.2
-Release:	%mkrel 2
+Version: 2.32.3
+Release:	%mkrel 1
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
