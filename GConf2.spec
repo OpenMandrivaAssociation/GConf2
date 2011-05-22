@@ -12,7 +12,7 @@
 Summary:	A configuration database system for GNOME 2
 Name:		%{pkgname}%{api_version}
 Version: 2.32.3
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -80,6 +80,7 @@ Group:		Development/GNOME and GTK+
 Conflicts:	libGConf1-devel < 1.0.6
 Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{lib_name} = %{version}
+Requires:	%{name} = %{version}
 Requires: 	%name-sanity-check = %version
 Requires:	libORBit2-devel
 Requires:	libglib2-devel >= %{req_glib_version}
