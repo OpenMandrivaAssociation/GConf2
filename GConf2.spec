@@ -12,7 +12,7 @@
 Summary:	A configuration database system for GNOME
 Name:		%{pkgname}%{api_version}
 Version:	3.2.3
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -89,6 +89,7 @@ Summary:	Development libraries and headers for GConf
 Group:		Development/GNOME and GTK+
 Provides:	lib%{name}-devel = %{version}-%{release}
 Requires:	%{lib_name} = %{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 Conflicts:	gir-repository < 0.6.5-12
 
 %description -n %{develname}
