@@ -2,8 +2,8 @@
 
 %define api_version	2
 %define gi_version	2.0
-%define lib_major	4
-%define lib_name	%mklibname %{pkgname} %{api_version} %{lib_major}
+%define major	4
+%define lib_name	%mklibname %{pkgname} %{api_version} %{major}
 %define gi_name		%mklibname gconf-gir %{gi_version}
 %define develname	%mklibname -d %{pkgname} %{api_version}
 
@@ -12,7 +12,7 @@
 Summary:	A configuration database system for GNOME
 Name:		%{pkgname}%{api_version}
 Version:	3.2.3
-Release:	3
+Release:	4
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -26,11 +26,7 @@ Patch1:		GConf-2.12.1-reload.patch
 Conflicts:	GConf < 1.0.6
 BuildRequires:	pkgconfig(dbus-1) >= 1.0.0
 BuildRequires:	pkgconfig(dbus-glib-1) >= 0.74
-BuildRequires:	pkgconfig(gio-2.0) >= 2.25.9
 BuildRequires:	pkgconfig(glib-2.0) > 2.14.0
-BuildRequires:	pkgconfig(gmodule-2.0) >= 2.7.0
-BuildRequires:	pkgconfig(gobject-2.0) >= 2.7.0
-BuildRequires:	pkgconfig(gthread-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0) >= 2.90
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(polkit-gobject-1)
@@ -41,11 +37,11 @@ BuildRequires:	intltool >= 0.35.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
 Requires:	polkit-agent
 Requires:	gsettings-desktop-schemas
-Requires:	%{lib_name} = %{version}-%{release}
 # needed by patch1
 Requires:	psmisc
 Requires:	sed
 Requires(post):	update-alternatives
+Requires:	%{gi_name} = %{version}-%{release}
 Suggests:	dconf
 
 %description
@@ -80,6 +76,8 @@ with GConf.
 Summary:	GObject introspection interface library for %{pkgname}
 Group:		System/Libraries
 Requires:	%{lib_name} = %{version}-%{release}
+Provides:	%{name}-gir = %{version}-%{release}
+Provides:	gconf-gir = %{version}-%{release}
 
 %description -n %{gi_name}
 GObject introspection interface library for %{pkgname}.
@@ -196,7 +194,7 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %{_libexecdir}/gconf-sanity-check-%{api_version}
 
 %files -n %{lib_name}
-%{_libdir}/lib*.so.%{lib_major}*
+%{_libdir}/lib*.so.%{major}*
 
 %files -n %{gi_name}
 %{_libdir}/girepository-1.0/GConf-%{gi_version}.typelib
@@ -211,4 +209,3 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 %{_mandir}/man1/gsettings-schema-convert.1*
-
