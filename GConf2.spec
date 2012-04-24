@@ -1,18 +1,18 @@
-%define pkgname		GConf
+%define pkgname	GConf
 
-%define api_version	2
+%define api	2
 %define gi_version	2.0
 %define major	4
-%define lib_name	%mklibname %{pkgname} %{api_version} %{major}
-%define gi_name		%mklibname gconf-gir %{gi_version}
-%define develname	%mklibname -d %{pkgname} %{api_version}
+%define libname	%mklibname %{pkgname} %{api} %{major}
+%define girname	%mklibname gconf-gir %{gi_version}
+%define develname	%mklibname -d %{pkgname} %{api}
 
 %define url_ver %(echo %{version} | cut -d. -f1,2)
 
 Summary:	A configuration database system for GNOME
-Name:		%{pkgname}%{api_version}
-Version:	3.2.3
-Release:	4
+Name:		%{pkgname}%{api}
+Version:	3.2.5
+Release:	1
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org/projects/gconf/
@@ -23,25 +23,24 @@ Source3:	gconf-schemas.filter
 Source4:	gconf-schemas.script
 # (fc) reload database when schemas are installed/uninstalled (GNOME bug #328697)
 Patch1:		GConf-2.12.1-reload.patch
-Conflicts:	GConf < 1.0.6
-BuildRequires:	pkgconfig(dbus-1) >= 1.0.0
-BuildRequires:	pkgconfig(dbus-glib-1) >= 0.74
-BuildRequires:	pkgconfig(glib-2.0) > 2.14.0
-BuildRequires:	pkgconfig(gtk+-3.0) >= 2.90
+
+BuildRequires:	gtk-doc
+BuildRequires:	intltool
+BuildRequires:	openldap-devel
+BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(polkit-gobject-1)
-BuildRequires:	openldap-devel
-BuildRequires:	autoconf
-BuildRequires:	gtk-doc
-BuildRequires:	intltool >= 0.35.0
-BuildRequires:	gobject-introspection-devel >= 0.9.5
 Requires:	polkit-agent
 Requires:	gsettings-desktop-schemas
 # needed by patch1
 Requires:	psmisc
 Requires:	sed
 Requires(post):	update-alternatives
-Requires:	%{gi_name} = %{version}-%{release}
+Requires:	%{girname} = %{version}-%{release}
 Suggests:	dconf
 
 %description
@@ -51,19 +50,19 @@ can be used with plain GTK+, Xlib, KDE, or even text mode
 applications as well.
 
 %package sanity-check
-Summary:	Sanity checker for %{pkgname}%{api_version}
+Summary:	Sanity checker for %{pkgname}%{api}
 Group:		%{group}
 
 %description sanity-check
-gconf-sanity-check is a tool to check the sanity of a %{pkgname}%{api_version}
+gconf-sanity-check is a tool to check the sanity of a %{pkgname}%{api}
 installation.
 
-%package -n %{lib_name}
+%package -n %{libname}
 Summary:	%{summary}
 Group:		System/Libraries
 Conflicts:	gir-repository < 0.6.5-12
 
-%description -n %{lib_name}
+%description -n %{libname}
 GConf is a configuration data storage mechanism scheduled to
 ship with GNOME. GConf does work without GNOME however; it
 can be used with plain GTK+, Xlib, KDE, or even text mode
@@ -72,21 +71,18 @@ applications as well.
 This package contains necessary libraries to run any programs linked
 with GConf.
 
-%package -n %{gi_name}
+%package -n %{girname}
 Summary:	GObject introspection interface library for %{pkgname}
 Group:		System/Libraries
-Requires:	%{lib_name} = %{version}-%{release}
-Provides:	%{name}-gir = %{version}-%{release}
-Provides:	gconf-gir = %{version}-%{release}
 
-%description -n %{gi_name}
+%description -n %{girname}
 GObject introspection interface library for %{pkgname}.
 
 %package -n %{develname}
 Summary:	Development libraries and headers for GConf
 Group:		Development/GNOME and GTK+
 Provides:	lib%{name}-devel = %{version}-%{release}
-Requires:	%{lib_name} = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	gir-repository < 0.6.5-12
 
@@ -123,7 +119,7 @@ mkdir %{buildroot}%{_sysconfdir}/gconf/schemas
 # Provide /usr/lib/gconfd-2 symlink on lib64 platforms
 %if "%{_lib}" != "lib"
 mkdir -p %{buildroot}%{_prefix}/lib
-ln -s ../%{_lib}/gconfd-%{api_version} %{buildroot}%{_prefix}/lib/gconfd-%{api_version}
+ln -s ../%{_lib}/gconfd-%{api} %{buildroot}%{_prefix}/lib/gconfd-%{api}
 %endif
 
 mkdir -p %{buildroot}%{_sysconfdir}/gconf/{gconf.xml.local-defaults,gconf.xml.local-mandatory,gconf.xml.system}
@@ -151,7 +147,7 @@ find %{buildroot} -name *.la | xargs rm
 
 # remove buggy symlink
 %post
-update-alternatives --install %{_bindir}/gconftool gconftool /usr/bin/gconftool-%{api_version} 20
+update-alternatives --install %{_bindir}/gconftool gconftool /usr/bin/gconftool-%{api} 20
 if [ "$1" = "2" ]; then 
 		update-alternatives --auto gconftool
 fi
@@ -162,13 +158,13 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %files -f %{name}.lang
 %doc README
 %dir %{_libdir}/GConf
-%dir %{_libdir}/GConf/%{api_version}
+%dir %{_libdir}/GConf/%{api}
 %dir %{_sysconfdir}/gconf
 %dir %{_sysconfdir}/gconf/gconf.xml*
 %dir %{_sysconfdir}/gconf/schemas
 %config(noreplace) %{_sysconfdir}/profile.d/*
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/org.gnome.GConf.Defaults.conf
-%config(noreplace) %{_sysconfdir}/gconf/%{api_version}
+%config(noreplace) %{_sysconfdir}/gconf/%{api}
 %{_sysconfdir}/xdg/autostart/gsettings-data-convert.desktop
 %{_bindir}/gsettings-data-convert
 %{_bindir}/gconftool*
@@ -176,11 +172,11 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %{_mandir}/man1/gconftool-2.1*
 %{_mandir}/man1/gsettings-data-convert.1*
 %if "%{_lib}" != "lib"
-%{_prefix}/lib/gconfd-%{api_version}
+%{_prefix}/lib/gconfd-%{api}
 %endif
-%{_libexecdir}/gconfd-%{api_version}
+%{_libexecdir}/gconfd-%{api}
 %{_libexecdir}/gconf-defaults-mechanism
-%{_libdir}/GConf/%{api_version}/*.so
+%{_libdir}/GConf/%{api}/*.so
 %{_libdir}/gio/modules/libgsettingsgconfbackend.so
 %{_datadir}/polkit-1/actions/org.gnome.gconf.defaults.policy
 %{_datadir}/sgml/gconf
@@ -191,12 +187,12 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 
 # (blino) split gconf-sanity-check not to require gtk in GConf2
 %files sanity-check
-%{_libexecdir}/gconf-sanity-check-%{api_version}
+%{_libexecdir}/gconf-sanity-check-%{api}
 
-%files -n %{lib_name}
+%files -n %{libname}
 %{_libdir}/lib*.so.%{major}*
 
-%files -n %{gi_name}
+%files -n %{girname}
 %{_libdir}/girepository-1.0/GConf-%{gi_version}.typelib
 
 %files -n %{develname}
@@ -209,3 +205,4 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 %{_mandir}/man1/gsettings-schema-convert.1*
+
