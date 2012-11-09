@@ -1,0 +1,24 @@
+--- GConf-2.12.1/gconf/gconftool.c.reload	2005-08-22 13:38:30.000000000 +0200
++++ GConf-2.12.1/gconf/gconftool.c	2006-02-27 10:58:57.000000000 +0100
+@@ -885,9 +885,11 @@
+ 
+       umask (022);
+       retval = do_makefile_install (conf, args, FALSE);
+-      
++
+       gconf_engine_unref (conf);
+ 
++      g_spawn_command_line_sync ("/usr/bin/killall -q -HUP " GCONF_SERVERDIR "/" GCONFD, NULL, NULL, NULL, NULL);
++
+       return retval;
+     }
+ 
+@@ -901,6 +903,8 @@
+       
+       gconf_engine_unref (conf);
+ 
++      g_spawn_command_line_sync ("/usr/bin/killall -q -HUP " GCONF_SERVERDIR "/" GCONFD, NULL, NULL, NULL, NULL);
++
+       return retval;
+     }
+ 

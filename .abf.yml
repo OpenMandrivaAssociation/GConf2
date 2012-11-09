@@ -1,0 +1,6 @@
+sources:
+  "GConf-3.2.5.tar.xz:"	340b3cb634ef64f0c31af9d971d4f3da95d1787c
+  "gconf.csh:"	37e82adf17a173221c5b7c3568c2bce668816955
+  "gconf-schemas.filter:"	c3d19cde7a326146df4e43235642cc92627fb9c9
+  "gconf-schemas.script:"	fe076f53faf0ae032f903670578aa42567003675
+  "gconf.sh:"	3e342addb9fbd3607763f213e82b9b05d8230241
