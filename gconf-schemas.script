@@ -1,0 +1,8 @@
+#!/bin/sh
+
+gconftool=/usr/bin/gconftool-2
+
+GCONF_CONFIG_SOURCE=`$gconftool --get-default-source`;
+export GCONF_CONFIG_SOURCE
+
+sed -n 's/^+//p' | xargs $gconftool --makefile-install-rule >/dev/null
