@@ -41,6 +41,8 @@ Requires:	psmisc
 Requires:	sed
 Requires(post):	update-alternatives
 Requires:	%{girname} = %{version}-%{release}
+# Removed upstream, see https://bugzilla.gnome.org/show_bug.cgi?id=646674
+Obsoletes:	GConf2-sanity-check < 3.2.6
 Suggests:	dconf
 
 %description
@@ -190,5 +192,4 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 %{_mandir}/man1/gsettings-schema-convert.1*
-
 
