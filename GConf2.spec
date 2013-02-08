@@ -1,17 +1,17 @@
-%define pkgname	GConf
+%define pkgname GConf
 
-%define api	2
-%define gi_version	2.0
-%define major	4
-%define libname	%mklibname %{pkgname} %{api} %{major}
-%define girname	%mklibname gconf-gir %{gi_version}
-%define develname	%mklibname -d %{pkgname} %{api}
+%define api 2
+%define gi_version 2.0
+%define major 4
+%define libname %mklibname %{pkgname} %{api} %{major}
+%define girname %mklibname gconf-gir %{gi_version}
+%define develname %mklibname -d %{pkgname} %{api}
 
 %define url_ver %(echo %{version} | cut -d. -f1,2)
 
 Summary:	A configuration database system for GNOME
 Name:		%{pkgname}%{api}
-Version:	3.2.5
+Version:	3.2.6
 Release:	1
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
