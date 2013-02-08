@@ -49,14 +49,6 @@ ship with GNOME. GConf does work without GNOME however; it
 can be used with plain GTK+, Xlib, KDE, or even text mode
 applications as well.
 
-%package sanity-check
-Summary:	Sanity checker for %{pkgname}%{api}
-Group:		%{group}
-
-%description sanity-check
-gconf-sanity-check is a tool to check the sanity of a %{pkgname}%{api}
-installation.
-
 %package -n %{libname}
 Summary:	%{summary}
 Group:		System/Libraries
@@ -181,10 +173,6 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %{_datadir}/dbus-1/services/org.gnome.GConf.service
 %{_datadir}/dbus-1/system-services/org.gnome.GConf.Defaults.service
 %{_var}/lib/rpm/filetriggers/gconf-schemas.*
-
-# (blino) split gconf-sanity-check not to require gtk in GConf2
-%files sanity-check
-%{_libexecdir}/gconf-sanity-check-%{api}
 
 %files -n %{libname}
 %{_libdir}/lib*.so.%{major}*
