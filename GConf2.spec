@@ -1,22 +1,21 @@
-%define pkgname GConf
-
-%define api 2
-%define gi_version 2.0
-%define major 4
-%define libname %mklibname %{pkgname} %{api} %{major}
-%define girname %mklibname gconf-gir %{gi_version}
-%define develname %mklibname -d %{pkgname} %{api}
-
 %define url_ver %(echo %{version} | cut -d. -f1,2)
+
+%define pkgname	GConf
+%define api	2
+%define girapi	2.0
+%define major	4
+%define libname	%mklibname gconf %{api} %{major}
+%define girname	%mklibname gconf-gir %{girapi}
+%define devname	%mklibname -d gconf %{api}
 
 Summary:	A configuration database system for GNOME
 Name:		%{pkgname}%{api}
 Version:	3.2.6
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
-URL:		http://www.gnome.org/projects/gconf/
-Source0:	http://download.gnome.org/sources/%{pkgname}/%{url_ver}/%{pkgname}-%{version}.tar.xz
+Url:		http://www.gnome.org/projects/gconf/
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{pkgname}/%{url_ver}/%{pkgname}-%{version}.tar.xz
 Source1:	gconf.sh
 Source2:	gconf.csh
 Source3:	gconf-schemas.filter
@@ -54,14 +53,9 @@ applications as well.
 %package -n %{libname}
 Summary:	%{summary}
 Group:		System/Libraries
-Conflicts:	gir-repository < 0.6.5-12
+Obsoletes:	%{_lib}GConf2_4 < 3.2.6-2
 
 %description -n %{libname}
-GConf is a configuration data storage mechanism scheduled to
-ship with GNOME. GConf does work without GNOME however; it
-can be used with plain GTK+, Xlib, KDE, or even text mode
-applications as well.
-
 This package contains necessary libraries to run any programs linked
 with GConf.
 
@@ -72,25 +66,21 @@ Group:		System/Libraries
 %description -n %{girname}
 GObject introspection interface library for %{pkgname}.
 
-%package -n %{develname}
+%package -n %{devname}
 Summary:	Development libraries and headers for GConf
 Group:		Development/GNOME and GTK+
-Provides:	lib%{name}-devel = %{version}-%{release}
-Requires:	%{libname} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
 Requires:	%{name} = %{version}-%{release}
-Conflicts:	gir-repository < 0.6.5-12
+Requires:	%{libname} = %{version}-%{release}
+Requires:	%{girname} = %{version}-%{release}
+Obsoletes:	%{_lib}GConf2-devel < 3.2.6-2
 
-%description -n %{develname}
-GConf is a configuration data storage mechanism scheduled to
-ship with GNOME. GConf does work without GNOME however; it
-can be used with plain GTK+, Xlib, KDE, or even text mode
-applications as well.
-
+%description -n %{devname}
 This package contains the header files and libraries needed to develop
 applications using GConf.
 
 %prep
-%setup -q -n %{pkgname}-%{version}
+%setup -qn %{pkgname}-%{version}
 %apply_patches
 
 %build
@@ -134,7 +124,7 @@ install -d %{buildroot}%{_var}/lib/rpm/filetriggers
 install -m 644 %{SOURCE3} %{buildroot}%{_var}/lib/rpm/filetriggers
 install -m 755 %{SOURCE4} %{buildroot}%{_var}/lib/rpm/filetriggers
 
-%{find_lang} %{name}
+%find_lang %{name}
 
 # remove buggy symlink
 %post
@@ -142,9 +132,6 @@ update-alternatives --install %{_bindir}/gconftool gconftool /usr/bin/gconftool-
 if [ "$1" = "2" ]; then 
 		update-alternatives --auto gconftool
 fi
-
-%triggerpostun -- GConf2 < 2.22.0-4
-GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/*.schemas > /dev/null
 
 %files -f %{name}.lang
 %doc README
@@ -177,17 +164,17 @@ GCONF_CONFIG_SOURCE=`%{_bindir}/gconftool-2 --get-default-source` %{_bindir}/gco
 %{_var}/lib/rpm/filetriggers/gconf-schemas.*
 
 %files -n %{libname}
-%{_libdir}/lib*.so.%{major}*
+%{_libdir}/libgconf-%{api}.so.%{major}*
 
 %files -n %{girname}
-%{_libdir}/girepository-1.0/GConf-%{gi_version}.typelib
+%{_libdir}/girepository-1.0/GConf-%{girapi}.typelib
 
-%files -n %{develname}
+%files -n %{devname}
 %doc ChangeLog TODO NEWS AUTHORS
 %doc %{_datadir}/gtk-doc/html/*
 %{_bindir}/gsettings-schema-convert
 %{_datadir}/aclocal/*
-%{_datadir}/gir-1.0/GConf-%{gi_version}.gir
+%{_datadir}/gir-1.0/GConf-%{girapi}.gir
 %{_includedir}/gconf/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
