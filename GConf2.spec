@@ -84,7 +84,7 @@ applications using GConf.
 %apply_patches
 
 %build
-%configure 
+%configure \
 	--with-gtk=3.0 \
 	--disable-static \
 	--disable-orbit
