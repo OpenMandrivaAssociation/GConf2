@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME
 Name:		%{pkgname}%{api}
 Version:	3.2.6
-Release:	12
+Release:	13
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://www.gnome.org/projects/gconf/
@@ -84,7 +84,7 @@ applications using GConf.
 %apply_patches
 
 %build
-%configure2_5x \
+%configure 
 	--with-gtk=3.0 \
 	--disable-static \
 	--disable-orbit
@@ -129,8 +129,8 @@ install -m 755 %{SOURCE4} %{buildroot}%{_var}/lib/rpm/filetriggers
 # remove buggy symlink
 %post
 update-alternatives --install %{_bindir}/gconftool gconftool /usr/bin/gconftool-%{api} 20
-if [ "$1" = "2" ]; then 
-		update-alternatives --auto gconftool
+if [ "$1" = "2" ]; then
+    update-alternatives --auto gconftool
 fi
 
 %files -f %{name}.lang
@@ -170,7 +170,7 @@ fi
 %{_libdir}/girepository-1.0/GConf-%{girapi}.typelib
 
 %files -n %{devname}
-%doc ChangeLog TODO NEWS AUTHORS
+%doc TODO NEWS AUTHORS
 %doc %{_datadir}/gtk-doc/html/*
 %{_bindir}/gsettings-schema-convert
 %{_datadir}/aclocal/*
