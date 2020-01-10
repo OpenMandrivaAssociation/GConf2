@@ -81,7 +81,7 @@ applications using GConf.
 
 %prep
 %setup -qn %{pkgname}-%{version}
-%apply_patches
+%autopatch -p1
 
 %build
 %configure \
