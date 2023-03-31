@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME
 Name:		%{pkgname}%{api}
 Version:	3.2.6
-Release:	15
+Release:	16
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://www.gnome.org/projects/gconf/
