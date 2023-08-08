@@ -11,7 +11,7 @@
 Summary:	A configuration database system for GNOME
 Name:		%{pkgname}%{api}
 Version:	3.2.6
-Release:	16
+Release:	17
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://www.gnome.org/projects/gconf/
@@ -25,7 +25,7 @@ Patch1:		GConf-2.12.1-reload.patch
 
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
-BuildRequires:	openldap-devel
+BuildRequires:	pkgconfig(ldap)
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(glib-2.0)
