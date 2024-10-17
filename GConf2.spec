@@ -14,7 +14,7 @@ Version:	3.2.6
 Release:	17
 License:	LGPLv2+
 Group:		Graphical desktop/GNOME
-Url:		http://www.gnome.org/projects/gconf/
+Url:		https://www.gnome.org/projects/gconf/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{pkgname}/%{url_ver}/%{pkgname}-%{version}.tar.xz
 Source1:	gconf.sh
 Source2:	gconf.csh
