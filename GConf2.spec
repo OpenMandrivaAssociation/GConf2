@@ -23,6 +23,11 @@ Source4:	gconf-schemas.script
 # (fc) reload database when schemas are installed/uninstalled (GNOME bug #328697)
 Patch1:		GConf-2.12.1-reload.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(ldap)
