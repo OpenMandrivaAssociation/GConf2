@@ -1,6 +1,7 @@
 # The LTO configure workaround rewrites this ancient libtool script into a
 # command that starts with -e, so the shared library is never produced.
 %global _disable_lto 1
+%global optflags %{optflags} -Wno-incompatible-pointer-types
 
 %define url_ver %(echo %{version} | cut -d. -f1,2)
 
@@ -102,7 +103,7 @@ applications using GConf.
 %make LIBTOOL=slibtool-shared
 
 %install
-%makeinstall_std
+%makeinstall_std LIBTOOL=slibtool-shared
 
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 install -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/profile.d/gconf.sh
