@@ -92,6 +92,9 @@ applications using GConf.
 %prep
 %setup -qn %{pkgname}-%{version}
 %autopatch -p1
+# slibtool forwards -export_dynamic to cc. glib's own flag is already -Wl,--export-dynamic.
+find . \( -name 'Makefile.am' -o -name 'Makefile.in' \) -print0 |
+	xargs -0 sed -i -E 's/(^|[[:space:]])-export_dynamic([[:space:]]|$)/\1-Wl,--export-dynamic\2/g'
 
 %build
 %configure \
