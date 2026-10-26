@@ -98,7 +98,8 @@ applications using GConf.
 	--disable-static \
 	--disable-orbit
 
-%make
+# The in-tree libtool script returns without writing libgconf-2.la.
+%make LIBTOOL=slibtool-shared
 
 %install
 %makeinstall_std
